@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+       }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            opacity: 0.9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        small {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00b33f;
+        }
+    </style>
+</head>
+<body style="background-image: url('https://images.squarespace-cdn.com/content/v1/550b57f0e4b03338e0474a39/1606973542744-7CW3DPMSGJ6L8T3KXQ4Z/STUMP+PLANTS+FA01.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; height: 100vh;">
+
+    <form action="/signup" method="post" onsubmit="return validateForm()">
+        <h1 class="text-center mb-4">Sign Up to Leafy Lifestyle</h1>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" oninput="validateEmail()" required>
+        <div id="emailError" style="color: red;"></div>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" oninput="validatePhone()" required>
+        <div id="phoneError" style="color: red;"></div>
+        <small>Format: +CountryCode-PhoneNumber (e.g. +1-555-1234567)</small>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <script>
+        function validateEmail() {
+            var email = document.getElementById("email").value;
+            var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            var emailError = document.getElementById("emailError");
+
+            if (!email.match(emailRegex)) {
+                emailError.textContent = "Invalid email format!";
+            } else {
+                emailError.textContent = "";
+            }
+        }
+
+        function validatePhone() {
+            var phone = document.getElementById("phone").value;
+            var phoneRegex = /^[0-9]\d{10}$/;
+            var phoneError = document.getElementById("phoneError");
+
+            if (!phone.match(phoneRegex)) {
+                phoneError.textContent = "Enter valid phone number";
+            } else {
+                phoneError.textContent = "";
+            }
+
+            // Check for invalid characters in phone number
+            var invalidCharacters = phone.replace(/[0-9]/g, "");
+            if (invalidCharacters.length > 0) {
+                alert("Invalid characters detected in phone number!");
+            }
+        }
+
+        function validateForm() {
+            var emailError = document.getElementById("emailError").textContent;
+            var phoneError = document.getElementById("phoneError").textContent;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+
+            if (emailError || phoneError) {
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
